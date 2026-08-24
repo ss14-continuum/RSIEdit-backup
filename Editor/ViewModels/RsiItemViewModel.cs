@@ -58,6 +58,7 @@ public class RsiItemViewModel : ViewModelBase, IDisposable
     private ComboBoxItem? _selectedLicense;
     private bool _modified;
     private string? _search;
+    private string? _saveFolder;
 
     public RsiItemViewModel(string? title = null, RsiItem? item = null)
     {
@@ -124,7 +125,11 @@ public class RsiItemViewModel : ViewModelBase, IDisposable
         }
     }
 
-    public string? SaveFolder { get; set; }
+    public string? SaveFolder
+    {
+        get => _saveFolder;
+        set => this.RaiseAndSetIfChanged(ref _saveFolder, value);
+    }
 
     public Interaction<Unit, string> ImportImageInteraction { get; } = new();
 
