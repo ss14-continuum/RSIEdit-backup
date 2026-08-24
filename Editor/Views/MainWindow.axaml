@@ -92,7 +92,14 @@
             </MenuItem>
         </Menu>
         <Grid>
-            <TabControl Items="{Binding OpenRsis}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+            <Label Content="Ctrl+V to paste a GitHub .dmi link and import it directly"
+                   FontSize="48"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   IsVisible="{Binding !IsRsiOpen}" />
+            <TabControl Items="{Binding OpenRsis}"
+                        SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                        IsVisible="{Binding IsRsiOpen}" >
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel>
