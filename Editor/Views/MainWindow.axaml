@@ -92,11 +92,18 @@
             </MenuItem>
         </Menu>
         <Grid>
-            <Label Content="Ctrl+V to paste a GitHub .dmi link and import it directly"
-                   FontSize="48"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   IsVisible="{Binding !IsRsiOpen}" />
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                <Label Content="Ctrl+V to paste a GitHub .dmi link and import it directly"
+                       FontSize="32"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       IsVisible="{Binding !IsRsiOpen}" />
+                <Label Content="See preferences > Default import repository if you are importing many .dmis"
+                       FontSize="24"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       IsVisible="{Binding !IsRsiOpen}" />
+            </StackPanel>
             <TabControl Items="{Binding OpenRsis}"
                         SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
                         IsVisible="{Binding IsRsiOpen}" >

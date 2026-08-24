@@ -356,11 +356,37 @@ public partial class MainWindowViewModel : ViewModelBase
         builder = null;
         pathStrings = null;
         dmiExtensionIndex = 0;
-        if (string.IsNullOrWhiteSpace(text) ||
-            !Uri.TryCreate(text, UriKind.Absolute, out var url) ||
+        if (string.IsNullOrWhiteSpace(text))
+            return false;
+
+        if (!Uri.TryCreate(text, UriKind.Absolute, out var url) ||
             !ValidDownloadHosts.Contains(url.Host))
         {
-            return false;
+            if (Preferences.DefaultImportRepository is not { } defaultImportRepository)
+                return false;
+
+            defaultImportRepository = defaultImportRepository.Trim();
+            if (defaultImportRepository.EndsWith('/'))
+                defaultImportRepository = defaultImportRepository[..^1];
+
+            var split = text.Split('=', 2);
+            if (split.Length == 0)
+                return false;
+
+            text = split[^1].Trim();
+            if (text.StartsWith('\''))
+                text = text[1..];
+
+            if (text.EndsWith('\''))
+                text = text[..^1];
+
+            text = text.Trim();
+            text = $"{defaultImportRepository}/blob/master/{text}";
+            if (!Uri.TryCreate(text, UriKind.Absolute, out url) ||
+                !ValidDownloadHosts.Contains(url.Host))
+            {
+                return false;
+            }
         }
 
         builder = new UriBuilder(url) { Port = -1 };

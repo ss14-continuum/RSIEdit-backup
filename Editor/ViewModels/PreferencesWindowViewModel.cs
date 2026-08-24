@@ -18,6 +18,7 @@ public class PreferencesWindowViewModel : ViewModelBase
     private bool _minifyJson;
     private bool _easterEggs;
     private int _indentation;
+    private string? _defaultImportRepository;
 
     public PreferencesWindowViewModel(Preferences preferences)
     {
@@ -28,6 +29,7 @@ public class PreferencesWindowViewModel : ViewModelBase
         MinifyJson = Preferences.MinifyJson;
         EasterEggs = Preferences.EasterEggs;
         Indentation = Preferences.Indentation;
+        DefaultImportRepository = Preferences.DefaultImportRepository;
     }
 
     public Preferences Preferences { get; }
@@ -41,10 +43,8 @@ public class PreferencesWindowViewModel : ViewModelBase
         get => _defaultLicense;
         set
         {
-            if (value == string.Empty)
-            {
+            if (string.IsNullOrWhiteSpace(value))
                 value = null;
-            }
 
             this.RaiseAndSetIfChanged(ref _defaultLicense, value);
         }
@@ -55,10 +55,8 @@ public class PreferencesWindowViewModel : ViewModelBase
         get => _defaultCopyright;
         set
         {
-            if (value == string.Empty)
-            {
+            if (string.IsNullOrWhiteSpace(value))
                 value = null;
-            }
 
             this.RaiseAndSetIfChanged(ref _defaultCopyright, value);
         }
@@ -70,9 +68,7 @@ public class PreferencesWindowViewModel : ViewModelBase
         set
         {
             if (string.IsNullOrWhiteSpace(value))
-            {
                 value = null;
-            }
 
             this.RaiseAndSetIfChanged(ref _gitHubToken, value);
         }
@@ -102,6 +98,18 @@ public class PreferencesWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _indentation, value);
     }
 
+    public string? DefaultImportRepository
+    {
+        get => _defaultImportRepository;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                value = null;
+
+            this.RaiseAndSetIfChanged(ref _defaultImportRepository, value);
+        }
+    }
+
     public async Task Save()
     {
         Preferences.DefaultLicense = DefaultLicense;
@@ -109,6 +117,7 @@ public class PreferencesWindowViewModel : ViewModelBase
         Preferences.GitHubToken = GitHubToken;
         Preferences.MinifyJson = MinifyJson;
         Preferences.EasterEggs = EasterEggs;
+        Preferences.DefaultImportRepository = DefaultImportRepository;
 
         await SaveAction.Handle(Preferences);
     }
@@ -118,7 +127,7 @@ public class PreferencesWindowViewModel : ViewModelBase
         await CancelAction.Handle(Preferences);
     }
 
-    public async Task OpenGithubTokensPage()
+    public void OpenGithubTokensPage()
     {
         var url = "https://github.com/settings/tokens";
 

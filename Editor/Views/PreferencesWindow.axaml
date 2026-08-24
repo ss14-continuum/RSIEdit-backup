@@ -7,21 +7,21 @@
         x:Class="Editor.Views.PreferencesWindow"
         WindowStartupLocation="CenterOwner"
         Width="700"
-        Height="350"
+        Height="400"
         Title="Preferences"
         Icon="/Assets/logo.ico"
         x:DataType="vm:PreferencesWindowViewModel">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Default License:" VerticalAlignment="Center" Width="125" />
+            <TextBlock Text="Default License:" VerticalAlignment="Center" Width="135" />
             <TextBox Text="{Binding DefaultLicense}" Width="250" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Default Copyright:" VerticalAlignment="Center" Width="125" />
+            <TextBlock Text="Default Copyright:" VerticalAlignment="Center" Width="135" />
             <TextBox Text="{Binding DefaultCopyright}" Width="250" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="GitHub Token:&#x0a;(Hover for details)" VerticalAlignment="Center" Width="125"
+            <TextBlock Text="GitHub Token:&#x0a;(Hover for details)" VerticalAlignment="Center" Width="135"
                        ToolTip.Tip="This is used to use the GitHub API when converting .dmi links from GitHub, instead of directly downloading the file.&#x0a;You will need to use this if the repository is private or requires logging into GitHub to access it.&#x0a;This token is saved in plain text to your computer in the .json file, if a malicious actor were to gain access to it, they would be able to steal your token and use the GitHub API with it.&#x0a;The token only needs repo scopes, to generate one, go to https://github.com/settings/tokens">
             </TextBlock>
             <TextBox Text="{Binding GitHubToken}" Width="250" PasswordChar="*"
@@ -31,16 +31,21 @@
             <Button Content="Open GitHub page" Command="{Binding OpenGithubTokensPage}"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Minify JSON:" VerticalAlignment="Center" Width="125" />
+            <TextBlock Text="Minify JSON:" VerticalAlignment="Center" Width="135" />
             <CheckBox IsChecked="{Binding MinifyJson}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Easter Eggs:" VerticalAlignment="Center" Width="125" />
+            <TextBlock Text="Easter Eggs:" VerticalAlignment="Center" Width="135" />
             <CheckBox IsChecked="{Binding EasterEggs}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Indentation:" VerticalAlignment="Center" Width="125" />
+            <TextBlock Text="Indentation:" VerticalAlignment="Center" Width="135" />
             <NumericUpDown Value="{Binding Indentation}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Default import repo:&#x0a;(Hover for details)" VerticalAlignment="Center" Width="135"
+                       ToolTip.Tip="This lets you import icon paths from SS13 directly, without having to get the .dmi from the GitHub repository manually.&#x0a;To use it, specify the root repository URL that you are working with, for example, https://github.com/RepositoryOwner/RepositoryName&#x0a;After doing so, you will be able to copy and paste icons/obj/my_dmi.dmi directly, without having to find its direct link first.&#x0a;Full links will still work, and they will override this option." />
+            <TextBox Text="{Binding DefaultImportRepository}" Width="400" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0 30 0 0">
             <Button Content="Save" IsDefault="True" Width="75" HorizontalContentAlignment="Center" Command="{Binding Save}" />
