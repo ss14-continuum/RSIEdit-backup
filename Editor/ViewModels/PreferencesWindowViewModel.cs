@@ -1,5 +1,8 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Diagnostics;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Editor.Models;
 using ReactiveUI;
@@ -113,5 +116,25 @@ public class PreferencesWindowViewModel : ViewModelBase
     public async Task Cancel()
     {
         await CancelAction.Handle(Preferences);
+    }
+
+    public async Task OpenGithubTokensPage()
+    {
+        var url = "https://github.com/settings/tokens";
+
+        // https://stackoverflow.com/a/43232486
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            url = url.Replace("&", "^&");
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            Process.Start("xdg-open", url);
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            Process.Start("open", url);
+        }
     }
 }
