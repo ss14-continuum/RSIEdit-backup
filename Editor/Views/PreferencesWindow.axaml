@@ -7,7 +7,7 @@
         x:Class="Editor.Views.PreferencesWindow"
         WindowStartupLocation="CenterOwner"
         Width="600"
-        Height="300"
+        Height="350"
         Title="Preferences"
         Icon="/Assets/logo.ico"
         x:DataType="vm:PreferencesWindowViewModel">
